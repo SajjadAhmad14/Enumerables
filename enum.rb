@@ -27,6 +27,13 @@ module Enumerable
       end
     end
   end
+
+  #MY EACH WITH INDEX METHOD
+  def my_select
+    for i in self
+      yield i
+    end
+  end
 end
 
 #DECLARE VARIABLES AND CALL FUNCTIONS BELOW
@@ -39,3 +46,14 @@ hash_first = {
   :keyfour => 'fourthvalue'
 }
 my_range = (1..9)
+hash_first.select do |i, j|
+  if i == :keytwo
+    puts j
+  end
+end
+puts
+hash_first.my_select do |i, j|
+  if i == :keytwo
+    puts j
+  end
+end
