@@ -58,5 +58,5 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_str.all? {|x| x.length <= 4 ? true : false ;}
-puts array_str.my_all? {|x| x.length <= 4 ? true : false ;}
+puts array_str.all? {|x| x.length >= 4 ? true : false ;}
+puts array_str.my_all? {|x| x.length >= 4 ? true : false ;}
