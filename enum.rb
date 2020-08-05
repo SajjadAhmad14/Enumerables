@@ -15,9 +15,15 @@ module Enumerable
         yield i, j
         j += 1
       end
-    else
+    when Array
       self.length.times do |i|
         yield self[i], i
+      end
+    else 
+      k = 0
+      for i in self
+        yield i, k
+        k += 1
       end
     end
   end
@@ -32,6 +38,4 @@ hash_first = {
   :keythree => 'thirdvalue',
   :keyfour => 'fourthvalue'
 }
-
-array_int.each_with_index {|(x), z| puts "Value: #{x}, #{z}."}
-array_int.my_each_with_index {|(x), z| puts "Value: #{x}, #{z}."}
+my_range = (1..9)
