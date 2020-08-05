@@ -19,7 +19,7 @@ module Enumerable
       self.length.times do |i|
         yield self[i], i
       end
-    else 
+    else
       k = 0
       for i in self
         yield i, k
@@ -28,11 +28,22 @@ module Enumerable
     end
   end
 
-  #MY EACH WITH INDEX METHOD
+  #MY SELECT METHOD
   def my_select
     for i in self
       yield i
     end
+  end
+
+  #MY ALL? METHOD
+  def my_all?
+    key = true
+    self.length.times do |x|
+      unless yield self[x]
+        key = false
+      end
+    end
+    key
   end
 end
 
@@ -46,14 +57,6 @@ hash_first = {
   :keyfour => 'fourthvalue'
 }
 my_range = (1..9)
-hash_first.select do |i, j|
-  if i == :keytwo
-    puts j
-  end
-end
-puts
-hash_first.my_select do |i, j|
-  if i == :keytwo
-    puts j
-  end
-end
+
+puts array_str.all? {|x| x.length <= 4 ? true : false ;}
+puts array_str.my_all? {|x| x.length <= 4 ? true : false ;}
