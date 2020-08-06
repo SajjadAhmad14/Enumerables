@@ -85,7 +85,7 @@ module Enumerable
     self.length
   end
 
-  # MY MAP METHOD
+  #MY MAP METHOD
   def my_map
     return to_enum(:my_map) unless block_given?
     n = []
@@ -94,10 +94,19 @@ module Enumerable
     end
     n
   end
+
+  #MY INJECT METHOD
+  def my_inject
+    counter = self[0]
+    for x in (1...self.length)
+      counter = yield(counter, self[x])
+    end
+    counter
+  end
 end
 
 #DECLARE VARIABLES AND CALL FUNCTIONS BELOW
-array_int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 2]
+array_int = [1, 2, 3, 4]
 array_str = %w[tadeu sajjad brazil pakistan microverse ruby]
 hash_first = {
   :keyone => 'firstvalue',
@@ -107,10 +116,5 @@ hash_first = {
 }
 my_range = (1..9)
 
-# puts array_int.my_count(2)
-
-# print array_int.each{|i| i * 2}
-# puts
-print array_int.map
-puts
-print array_int.my_map
+puts array_int.inject  {|x, y| x + y}
+puts array_int.my_inject {|x, y| x + y}
