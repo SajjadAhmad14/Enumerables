@@ -37,7 +37,7 @@ module Enumerable
     end
   end
 
-  #MY ALL? METHOD
+  #MY_ALL? METHOD
   def my_all?
     key = true
     self.length.times do |x|
@@ -46,6 +46,14 @@ module Enumerable
       end
     end
     key
+  end
+
+  #MY_ANY? METHOD
+  def my_any?
+    for i in self
+      return true if yield i
+    end
+    false
   end
 end
 
@@ -60,5 +68,5 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_str.all? {|x| x.length >= 4 ? true : false ;}
-puts array_str.my_all? {|x| x.length >= 4 ? true : false ;}
+puts array_int.any? {|x| x > 10 ? true : false ;}
+puts array_int.my_any? {|x| x > 10 ? true : false ;}
