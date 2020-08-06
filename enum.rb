@@ -66,12 +66,14 @@ module Enumerable
 
   #MY COUNT METHOD
   def my_count(*key)
+    #checks if any arguments were passed
     if key.length > 0
       counter = 0
       self.length.times do |x|
         counter += 1 if self[x].to_i == key[0].to_i
       end
       return counter
+      #checks if any block is given
     elsif block_given?
       counter = 0
       self.length.times do |x|
@@ -79,6 +81,7 @@ module Enumerable
       end
       return counter
     end
+    #if both condition are not met, return the length of the array
     self.length
   end
 end
