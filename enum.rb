@@ -63,6 +63,22 @@ module Enumerable
     end
     true
   end
+
+  #MY COUNT METHOD
+  def my_count
+    count = 0
+    if block_given?
+        for i in self
+          if yield i
+            count += 1
+          end
+        end
+      count
+    else
+      count = self.length
+    end
+    count
+  end
 end
 
 #DECLARE VARIABLES AND CALL FUNCTIONS BELOW
@@ -76,5 +92,4 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_int.none? {|x| x > 0 ? true : false;}
-puts array_int.my_none? {|x| x > 0 ? true : false;}
+puts array_str.my_count
