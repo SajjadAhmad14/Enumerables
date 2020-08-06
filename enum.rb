@@ -55,6 +55,14 @@ module Enumerable
     end
     false
   end
+
+  #MY NONE? METHOD
+  def my_none?
+    self.length.times do |x|
+      return false if yield self[x]
+    end
+    true
+  end
 end
 
 #DECLARE VARIABLES AND CALL FUNCTIONS BELOW
@@ -68,5 +76,5 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_int.any? {|x| x > 10 ? true : false ;}
-puts array_int.my_any? {|x| x > 10 ? true : false ;}
+puts array_int.none? {|x| x > 0 ? true : false;}
+puts array_int.my_none? {|x| x > 0 ? true : false;}
