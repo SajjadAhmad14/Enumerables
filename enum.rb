@@ -84,6 +84,16 @@ module Enumerable
     #if both condition are not met, return the length of the array
     self.length
   end
+
+  # MY MAP METHOD
+  def my_map
+    return to_enum(:my_map) unless block_given?
+    n = []
+    for i in self
+      n.push(yield i)
+    end
+    n
+  end
 end
 
 #DECLARE VARIABLES AND CALL FUNCTIONS BELOW
@@ -97,4 +107,10 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_int.my_count(2)
+# puts array_int.my_count(2)
+
+# print array_int.each{|i| i * 2}
+# puts
+print array_int.map
+puts
+print array_int.my_map
