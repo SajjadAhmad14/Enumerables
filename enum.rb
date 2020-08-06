@@ -65,24 +65,26 @@ module Enumerable
   end
 
   #MY COUNT METHOD
-  def my_count
-    count = 0
-    if block_given?
-        for i in self
-          if yield i
-            count += 1
-          end
-        end
-      count
-    else
-      count = self.length
+  def my_count(*key)
+    if key.length > 0
+      counter = 0
+      self.length.times do |x|
+        counter += 1 if self[x].to_i == key[0].to_i
+      end
+      return counter
+    elsif block_given?
+      counter = 0
+      self.length.times do |x|
+        counter += 1 if yield self[x]
+      end
+      return counter
     end
-    count
+    self.length
   end
 end
 
 #DECLARE VARIABLES AND CALL FUNCTIONS BELOW
-array_int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+array_int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 2]
 array_str = %w[tadeu sajjad brazil pakistan microverse ruby]
 hash_first = {
   :keyone => 'firstvalue',
@@ -92,4 +94,4 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_str.my_count
+puts array_int.my_count
