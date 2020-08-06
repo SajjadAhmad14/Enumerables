@@ -70,7 +70,7 @@ module Enumerable
     if key.length > 0
       counter = 0
       self.length.times do |x|
-        counter += 1 if self[x].to_i == key[0].to_i
+        counter += 1 if self[x] == key[0]
       end
       return counter
       #checks if any block is given
@@ -97,4 +97,4 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_int.my_count
+puts array_int.my_count(2)
