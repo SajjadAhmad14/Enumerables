@@ -1,9 +1,11 @@
 module Enumerable
   #MY EACH METHOD
   def my_each
+    return to_enum(:my_each) unless block_given?
     for value in self
       yield value
     end
+    return self
   end
 
   #MY EACH WITH INDEX METHOD
