@@ -116,5 +116,7 @@ hash_first = {
 }
 my_range = (1..9)
 
-puts array_int.inject  {|x, y| x + y}
-puts array_int.my_inject {|x, y| x + y}
+def multiply_els(ar)
+    ar.my_inject {|x, y| x * y}
+end
+puts multiply_els(array_int)
