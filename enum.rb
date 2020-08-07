@@ -1,102 +1,93 @@
 module Enumerable
-  
+
   def my_each
     return to_enum(:my_each) unless block_given?
-    for value in self
-      yield value
+
+    length.times do |x|
+      yield self[x]
     end
-    return self
+    self
   end
 
   def my_each_with_index
     case self
     when Hash
       j = 0
-      for i in self
-        yield i, j
+      length.times do |x|
+        yield self[x], j
         j += 1
       end
     when Array
-      self.length.times do |i|
+      length.times do |i|
         yield self[i], i
       end
     else
       k = 0
-      for i in self
-        yield i, k
+      length.times do |x|
+        yield self[x], k
         k += 1
       end
     end
   end
 
   def my_select
-    for i in self
-      yield i
+    length.times do |x|
+      yield self[x]
     end
   end
 
   def my_all?
     key = true
-    self.length.times do |x|
-      unless yield self[x]
-        key = false
-      end
+    length.times do |x|
+      key = false unless yield self[x]
     end
     key
   end
 
   def my_any?
-    for i in self
-      return true if yield i
+    length.times do |x|
+      return true if yield[x]
     end
     false
   end
 
   def my_none?
-    self.length.times do |x|
+    length.times do |x|
       return false if yield self[x]
     end
     true
   end
 
   def my_count(*key)
-    if key.length > 0
+    if key.length.positive?
       counter = 0
-      self.length.times do |x|
+      length.times do |x|
         counter += 1 if self[x] == key[0]
       end
       return counter
     elsif block_given?
       counter = 0
-      self.length.times do |x|
+      length.times do |x|
         counter += 1 if yield self[x]
       end
       return counter
     end
-    self.length
+    length
   end
 
   def my_map(proc = nil)
-    new_array = Array.new
+    new_array = []
     if proc.nil?
-      for i in self
-        new_array.push(yield(i))
+      length.times do |x|
+        new_array_push(yield(self[x]))
       end
       new_array
     else
-      for i in self
-        new_array.push(proc.call(i))
+      length.times do |x|
+        new_array.push(proc.call(self[x]))
       end
       new_array
     end
-  end
-
-  def my_map_proc()
-    n = []
-    for i in self
-      n.push(proc.call(i))
-    end
-    n
   end
 
   def my_inject
