@@ -76,13 +76,19 @@ module Enumerable
     self.length
   end
 
-  def my_map
-    n = []
-    return to_enum(:my_map) unless block_given?
-    for i in self
-      n.push(yield i)
+  def my_map(proc = nil)
+    new_array = Array.new
+    if proc.nil?
+      for i in self
+        new_array.push(yield(i))
+      end
+      new_array
+    else
+      for i in self
+        new_array.push(proc.call(i))
+      end
+      new_array
     end
-    n
   end
 
   def my_map_proc()
