@@ -47,7 +47,7 @@ module Enumerable
 
   def my_any?
     length.times do |x|
-      return true if yield[x]
+      return true if yield self[x]
     end
     false
   end
@@ -80,7 +80,7 @@ module Enumerable
     new_array = []
     if proc.nil?
       length.times do |x|
-        new_array_push(yield(self[x]))
+        new_array.push(yield(self[x]))
       end
     else
       length.times do |x|
@@ -104,6 +104,4 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
-
-# ar = [1, 2, 3, 4]
-# puts ar.my_select{|x| x.even?}
+arr_int = [1, 2, 3, 4]
