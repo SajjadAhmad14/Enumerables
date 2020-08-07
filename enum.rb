@@ -85,12 +85,21 @@ module Enumerable
     self.length
   end
 
-  #MY MAP METHOD
+  #MY MAP METHOD BLOCK
   def my_map
-    return to_enum(:my_map) unless block_given?
     n = []
+    return to_enum(:my_map) unless block_given?
     for i in self
       n.push(yield i)
+    end
+    n
+  end
+
+  #MY MAP METHOD PROC
+  def my_map_proc
+    n = []
+    for i in self
+      n.push(proc.call(i))
     end
     n
   end
@@ -116,7 +125,14 @@ hash_first = {
 }
 my_range = (1..9)
 
+=begin
 def multiply_els(ar)
     ar.my_inject {|x, y| x * y}
 end
 puts multiply_els(array_int)
+=end
+
+p = Proc.new {|x| x}
+
+puts array_int.my_map {|x| x}
+puts array_int.my_map_proc(&p)
