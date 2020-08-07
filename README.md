@@ -15,7 +15,7 @@ These methods are coded without using any Enumerable library method.
 
 ## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](https://repl.it/@SajjadAhmad14/MadCriminalOs#main.rb)
 
 
 ## Getting Started
@@ -33,9 +33,9 @@ These methods are coded without using any Enumerable library method.
 
 👤 **Author2**
 
-- Github: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- Linkedin: [linkedin](https://linkedin.com/linkedinhandle)
+- Github: [@githubhandle](https://github.com/tadeuasarro)
+- Twitter: [@twitterhandle](https://twitter.com/tadeuasarro)
+- Linkedin: [linkedin](https://linkedin.com/tadeuasarro)
 
 ## 🤝 Contributing
 
