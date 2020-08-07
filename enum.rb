@@ -109,22 +109,6 @@ module Enumerable
 
 end
 
-array_int = [1, 2, 3, 4]
-array_str = %w[tadeu sajjad brazil pakistan microverse ruby]
-hash_first = {
-  :keyone => 'firstvalue',
-  :keytwo => 'secondvalue',
-  :keythree => 'thirdvalue',
-  :keyfour => 'fourthvalue'
-}
-my_range = (1..9)
-
 def multiply_els(ar)
     ar.my_inject {|x, y| x * y}
 end
-
-p = Proc.new {|x| x }
-
-print array_str.my_map {|x| x}
-puts
-print array_str.my_map_proc(&p)
