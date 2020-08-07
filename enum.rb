@@ -91,7 +91,8 @@ module Enumerable
   def my_inject
     counter = self[0]
     length.times do |x|
-      next if x == 0
+      next if x.zero?
+
       counter = yield(counter, self[x])
     end
     counter
