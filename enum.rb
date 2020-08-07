@@ -1,6 +1,7 @@
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
+
     length.times do |x|
       yield self[x]
     end
@@ -9,6 +10,7 @@ module Enumerable
 
   def my_each_with_index
     return to_enum(:my_each) unless block_given?
+
     case self
     when Hash
       j = 0
@@ -104,4 +106,3 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
-arr_int = [1, 2, 3, 4]
