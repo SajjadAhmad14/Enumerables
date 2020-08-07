@@ -1,5 +1,4 @@
 module Enumerable
-
   def my_each
     return to_enum(:my_each) unless block_given?
 
@@ -81,25 +80,24 @@ module Enumerable
       length.times do |x|
         new_array_push(yield(self[x]))
       end
-      new_array
     else
       length.times do |x|
         new_array.push(proc.call(self[x]))
       end
-      new_array
     end
+    new_array
   end
 
   def my_inject
     counter = self[0]
-    for x in (1...self.length)
+    length.times do |x|
+      next if x == 0
       counter = yield(counter, self[x])
     end
     counter
   end
-
 end
 
-def multiply_els(ar)
-    ar.my_inject {|x, y| x * y}
+def multiply_els(arr)
+  arr.my_inject { |x, y| x * y }
 end
