@@ -1,7 +1,6 @@
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
-
     length.times do |x|
       yield self[x]
     end
@@ -9,6 +8,7 @@ module Enumerable
   end
 
   def my_each_with_index
+    return to_enum(:my_each) unless block_given?
     case self
     when Hash
       j = 0
@@ -30,9 +30,11 @@ module Enumerable
   end
 
   def my_select
+    n = []
     length.times do |x|
-      yield self[x]
+      n.push(self[x]) if yield self[x]
     end
+    n
   end
 
   def my_all?
@@ -102,3 +104,6 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
+
+# ar = [1, 2, 3, 4]
+# puts ar.my_select{|x| x.even?}
