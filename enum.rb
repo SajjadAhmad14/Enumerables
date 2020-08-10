@@ -47,11 +47,17 @@ module Enumerable
     unless pattern.nil?
       if pattern.class == Regexp
         length.times do |x|
-          return false if !pattern.match(self[x])
+          if self[x].is_a?(String)
+            return false if !pattern.match(self[x])
+          end
+        end
+      elsif pattern.class == Class
+        length.times do |x|
+          return false if !self[x].is_a?(pattern)
         end
       else
         length.times do |x|
-          return false if self[x].class != pattern
+          return false if self[x] != pattern
         end
       end
       true
@@ -63,11 +69,37 @@ module Enumerable
     end
   end
 
-  def my_any?
-    length.times do |x|
-      return true if yield self[x]
+  def my_any?(pattern = nil)
+    if ((block_given? == false) && pattern.nil? == true)
+      length.times do |x|
+        return true unless ((self[x] == false) || (self[x] == nil))
+      end
+      return false
     end
-    false
+
+    unless pattern.nil?
+      if pattern.class == Regexp
+        length.times do |x|
+          if self[x].is_a?(String)
+            return true if pattern.match(self[x])
+          end
+        end
+      elsif pattern.class == Class
+        length.times do |x|
+          return true if self[x].is_a?(pattern)
+        end
+      else
+        length.times do |x|
+          return true if self[x] == pattern
+        end
+      end
+      false
+    else
+      length.times do |x|
+        return true if yield self[x]
+      end
+      false
+    end
   end
 
   def my_none?
@@ -123,9 +155,9 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = ['usa']
+my_arr = [2, 1]
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
 
-puts my_arr.all? {|x| x.is_a?(String)}
-puts my_arr.my_all? {|x| x.is_a?(String)}
+puts my_arr.all?(Numeric)
+puts my_arr.my_all?(Numeric)
