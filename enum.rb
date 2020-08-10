@@ -142,14 +142,15 @@ module Enumerable
   end
 
   def my_map(proc = nil)
+    return to_enum(:my_map) unless block_given?
     new_array = []
     if proc.nil?
-      length.times do |x|
-        new_array.push(yield(self[x]))
+      size.times do |x|
+        new_array.push(yield(self.to_a[x]))
       end
     else
-      length.times do |x|
-        new_array.push(proc.call(self[x]))
+      size.times do |x|
+        new_array.push(proc.call(self.to_a[x]))
       end
     end
     new_array
@@ -178,3 +179,8 @@ end
 my_arr = [2, 3, 1, 4, 5]
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
+
+puts my_range.map{|i| i * 2}
+puts
+puts my_range.my_map{|i| i * 2}
+puts my_range.collect {"cat"}
