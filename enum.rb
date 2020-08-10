@@ -52,22 +52,17 @@ module Enumerable
       length.times do |x|
         return false unless yield self[x]
       end
-      true
+    elsif pattern.class == Regexp
+      length.times do |x|
+        return false if self[x].is_a?(String) && !pattern.match(self[x])
+      end
+    elsif pattern.class == Class
+      length.times do |x|
+        return false unless self[x].is_a?(pattern)
+      end
     else
-      if pattern.class == Regexp
-        length.times do |x|
-          if self[x].is_a?(String) && !pattern.match(self[x])
-            return false
-          end
-        end
-      elsif pattern.class == Class
-        length.times do |x|
-          return false unless self[x].is_a?(pattern)
-        end
-      else
-        length.times do |x|
-          return false if self[x] != pattern
-        end
+      length.times do |x|
+        return false if self[x] != pattern
       end
     end
     true
@@ -164,9 +159,9 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = [1, 1, 3]
+my_arr = ['string']
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
 
-puts my_arr.all? {|x| x.odd?}
-puts my_arr.my_all? {|x| x.odd?}
+puts my_arr.all?(String)
+puts my_arr.my_all?(String)
