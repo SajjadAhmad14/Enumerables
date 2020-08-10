@@ -24,13 +24,13 @@ module Enumerable
 
     if self.class == Hash
       size.times do |x|
-        (self.to_a[x]) if yield self.to_a[x]
+        to_a[x] if yield to_a[x]
       end
       self
     else
       n = []
       size.times do |x|
-        n.push(self.to_a[x]) if yield self.to_a[x]
+        n.push(to_a[x]) if yield to_a[x]
       end
       n
     end
@@ -39,9 +39,7 @@ module Enumerable
   def my_all?(pattern = nil)
     if ((block_given? == false) && pattern.nil? == true)
       length.times do |x|
-        if ((self[x] == false) || (self[x] == nil))
-          return false
-        end
+        return false if ((self[x] == false) || (self[x] == nil))
       end
       return true
     end
