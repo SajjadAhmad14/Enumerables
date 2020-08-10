@@ -69,41 +69,57 @@ module Enumerable
   end
 
   def my_any?(pattern = nil)
-    if ((block_given? == false) && pattern.nil? == true)
+    if block_given? == false && pattern.nil? == true
       length.times do |x|
-        return true unless ((self[x] == false) || (self[x] == nil))
+        return true unless self[x] == false || self[x].nil?
       end
       return false
     end
 
-    unless pattern.nil?
-      if pattern.class == Regexp
-        length.times do |x|
-          if self[x].is_a?(String)
-            return true if pattern.match(self[x])
-          end
-        end
-      elsif pattern.class == Class
-        length.times do |x|
-          return true if self[x].is_a?(pattern)
-        end
-      else
-        length.times do |x|
-          return true if self[x] == pattern
-        end
-      end
-      false
-    else
+    if pattern.nil?
       length.times do |x|
         return true if yield self[x]
       end
-      false
+    elsif pattern.class == Regexp
+      length.times do |x|
+        return true if self[x].is_a?(String) && pattern.match(self[x])
+      end
+    elsif pattern.class == Class
+      length.times do |x|
+        return true if self[x].is_a?(pattern)
+      end
+    else
+      length.times do |x|
+        return true if self[x] == pattern
+      end
     end
+    false
   end
 
-  def my_none?
-    length.times do |x|
-      return false if yield self[x]
+  def my_none?(pattern = nil)
+    if block_given? == false && pattern.nil? == true
+      length.times do |x|
+        return false unless self[x] == false || self[x].nil?
+      end
+      return true
+    end
+
+    if pattern.nil?
+      length.times do |x|
+        return false if yield self[x]
+      end
+    elsif pattern.class == Regexp
+      length.times do |x|
+        return false if self[x].is_a?(String) && pattern.match(self[x])
+      end
+    elsif pattern.class == Class
+      length.times do |x|
+        return false if self[x].is_a?(pattern)
+      end
+    else
+      length.times do |x|
+        return false if self[x] == pattern
+      end
     end
     true
   end
@@ -159,9 +175,6 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = [1, 2, 3, 3]
+my_arr = [2, 3, 1, 4, 5]
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
-
-puts my_range.count{|i| i.even?}
-puts my_range.my_count{|i| i.even?}
