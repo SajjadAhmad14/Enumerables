@@ -9,7 +9,8 @@ module Enumerable
   end
 
   def my_each_with_index
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_each_with_index) unless block_given?
+
     j = 0
     size.times do |x|
       yield to_a[x], j
@@ -19,19 +20,49 @@ module Enumerable
   end
 
   def my_select
-    n = []
-    length.times do |x|
-      n.push(self[x]) if yield self[x]
+    return to_enum(:my_select) unless block_given?
+
+    if self.class == Hash
+      size.times do |x|
+        (self.to_a[x]) if yield self.to_a[x]
+      end
+      self
+    else
+      n = []
+      size.times do |x|
+        n.push(self.to_a[x]) if yield self.to_a[x]
+      end
+      n
     end
-    n
   end
 
-  def my_all?
-    key = true
-    length.times do |x|
-      key = false unless yield self[x]
+  def my_all?(pattern = nil)
+    if ((block_given? == false) && pattern.nil? == true)
+      length.times do |x|
+        if ((self[x] == false) || (self[x] == nil))
+          return false
+        end
+      end
+      return true
     end
-    key
+
+    unless pattern.nil?
+      if pattern.class == Regexp
+        length.times do |x|
+          return false if !pattern.match(self[x])
+        end
+      else
+        length.times do |x|
+          return false if self[x].class != pattern
+        end
+      end
+      true
+    else
+      length.times do |x|
+        return false unless yield self[x]
+      end
+      true
+    end
   end
 
   def my_any?
@@ -94,10 +125,9 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = [1, 2, 3, 4]
+my_arr = ['usa']
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
-my_arr.each_with_index{|i, j| puts "element #{i} and index #{j}"}
-puts
-my_arr.my_each_with_index{|i, j| puts "element #{i} and index #{j}"}
 
+puts my_arr.all? {|x| x.is_a?(String)}
+puts my_arr.my_all? {|x| x.is_a?(String)}
