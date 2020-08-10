@@ -111,18 +111,18 @@ module Enumerable
   def my_count(*key)
     if key.length.positive?
       counter = 0
-      length.times do |x|
+      size.times do |x|
         counter += 1 if self[x] == key[0]
       end
       return counter
     elsif block_given?
       counter = 0
-      length.times do |x|
-        counter += 1 if yield self[x]
+      size.times do |x|
+        counter += 1 if yield to_a[x]
       end
       return counter
     end
-    length
+    size
   end
 
   def my_map(proc = nil)
@@ -159,9 +159,9 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = ['string']
+my_arr = [1, 2, 3, 3]
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
 
-puts my_arr.all?(String)
-puts my_arr.my_all?(String)
+puts my_range.count{|i| i.even?}
+puts my_range.my_count{|i| i.even?}
