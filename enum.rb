@@ -80,19 +80,17 @@ module Enumerable
       length.times do |x|
         return true if yield self[x]
       end
+    elsif pattern.class == Regexp
+      length.times do |x|
+        return true if self[x].is_a?(String) && pattern.match(self[x])
+      end
+    elsif pattern.class == Class
+      length.times do |x|
+        return true if self[x].is_a?(pattern)
+      end
     else
-      if pattern.class == Regexp
-        length.times do |x|
-          return true if self[x].is_a?(String) && pattern.match(self[x])
-        end
-      elsif pattern.class == Class
-        length.times do |x|
-          return true if self[x].is_a?(pattern)
-        end
-      else
-        length.times do |x|
-          return true if self[x] == pattern
-        end
+      length.times do |x|
+        return true if self[x] == pattern
       end
     end
     false
