@@ -154,6 +154,10 @@ module Enumerable
   end
 end
 
+# rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
