@@ -2,33 +2,20 @@ module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
 
-    length.times do |x|
-      yield self[x]
+    size.times do |x|
+      yield to_a[x]
     end
     self
   end
 
   def my_each_with_index
     return to_enum(:my_each) unless block_given?
-
-    case self
-    when Hash
-      j = 0
-      length.times do |x|
-        yield self[x], j
-        j += 1
-      end
-    when Array
-      length.times do |i|
-        yield self[i], i
-      end
-    else
-      k = 0
-      length.times do |x|
-        yield self[x], k
-        k += 1
-      end
+    j = 0
+    size.times do |x|
+      yield to_a[x], j
+      j += 1
     end
+    self
   end
 
   def my_select
@@ -106,3 +93,11 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
+
+my_arr = [1, 2, 3, 4]
+my_range = (1..5)
+my_hash = {"sajjad" => 1, "tadue" => 2}
+my_arr.each_with_index{|i, j| puts "element #{i} and index #{j}"}
+puts
+my_arr.my_each_with_index{|i, j| puts "element #{i} and index #{j}"}
+
