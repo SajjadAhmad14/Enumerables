@@ -69,19 +69,21 @@ module Enumerable
   end
 
   def my_any?(pattern = nil)
-    if ((block_given? == false) && pattern.nil? == true)
+    if block_given? == false && pattern.nil? == true
       length.times do |x|
-        return true unless ((self[x] == false) || (self[x] == nil))
+        return true unless self[x] == false || self[x].nil?
       end
       return false
     end
 
-    unless pattern.nil?
+    if pattern.nil?
+      length.times do |x|
+        return true if yield self[x]
+      end
+    else
       if pattern.class == Regexp
         length.times do |x|
-          if self[x].is_a?(String)
-            return true if pattern.match(self[x])
-          end
+          return true if self[x].is_a?(String) && pattern.match(self[x])
         end
       elsif pattern.class == Class
         length.times do |x|
@@ -92,13 +94,8 @@ module Enumerable
           return true if self[x] == pattern
         end
       end
-      false
-    else
-      length.times do |x|
-        return true if yield self[x]
-      end
-      false
     end
+    false
   end
 
   def my_none?
@@ -159,9 +156,9 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = ['string']
+my_arr = [2]
 my_range = (1..5)
 my_hash = {"sajjad" => 1, "tadue" => 2}
 
-puts my_arr.all?(String)
-puts my_arr.my_all?(String)
+puts my_arr.any? {|x| x.is_a?(String)}
+puts my_arr.my_any? {|x| x.is_a?(String)}
