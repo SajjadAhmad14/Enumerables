@@ -167,6 +167,8 @@ module Enumerable
   end
 end
 
+
+
 # rubocop:enable Metrics/ModuleLength
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
@@ -176,11 +178,3 @@ def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
 
-my_arr = [2, 3, 1, 4, 5]
-my_range = (1..5)
-my_hash = {"sajjad" => 1, "tadue" => 2}
-
-puts my_range.map{|i| i * 2}
-puts
-puts my_range.my_map{|i| i * 2}
-puts my_range.collect {"cat"}
