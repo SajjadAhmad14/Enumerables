@@ -143,14 +143,15 @@ module Enumerable
 
   def my_map(proc = nil)
     return to_enum(:my_map) unless block_given?
+
     new_array = []
     if proc.nil?
       size.times do |x|
-        new_array.push(yield(self.to_a[x]))
+        new_array.push(yield to_a[x])
       end
     else
       size.times do |x|
-        new_array.push(proc.call(self.to_a[x]))
+        new_array.push(proc.call(to_a[x]))
       end
     end
     new_array
@@ -166,9 +167,6 @@ module Enumerable
     counter
   end
 end
-
-
-
 # rubocop:enable Metrics/ModuleLength
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
@@ -177,4 +175,3 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
-
