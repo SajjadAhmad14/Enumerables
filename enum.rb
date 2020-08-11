@@ -42,7 +42,7 @@ module Enumerable
 
   def my_all?(pattern = nil)
     if block_given? == false && pattern.nil? == true
-      size.times do |x|
+      to_a.size.times do |x|
         return false if to_a[x] == false || to_a[x].nil?
       end
       return true
@@ -70,27 +70,27 @@ module Enumerable
 
   def my_any?(pattern = nil)
     if block_given? == false && pattern.nil? == true
-      length.times do |x|
-        return true unless self[x] == false || self[x].nil?
+      to_a.size.times do |x|
+        return true unless self.to_a[x] == false || self.to_a[x].nil?
       end
       return false
     end
 
     if pattern.nil?
-      length.times do |x|
-        return true if yield self[x]
+      to_a.size.times do |x|
+        return true if yield self.to_a[x]
       end
     elsif pattern.class == Regexp
-      length.times do |x|
-        return true if self[x].is_a?(String) && pattern.match(self[x])
+      to_a.size.times do |x|
+        return true if self.to_a[x].is_a?(String) && pattern.match(self.to_a[x])
       end
     elsif pattern.class == Class
-      length.times do |x|
-        return true if self[x].is_a?(pattern)
+      to_a.size.times do |x|
+        return true if self.to_a[x].is_a?(pattern)
       end
     else
-      length.times do |x|
-        return true if self[x] == pattern
+      to_a.size.times do |x|
+        return true if self.to_a[x] == pattern
       end
     end
     false
@@ -98,27 +98,27 @@ module Enumerable
 
   def my_none?(pattern = nil)
     if block_given? == false && pattern.nil? == true
-      length.times do |x|
-        return false unless self[x] == false || self[x].nil?
+      to_a.size.times do |x|
+        return false unless self.to_a[x] == false || self.to_a[x].nil?
       end
       return true
     end
 
     if pattern.nil?
-      length.times do |x|
-        return false if yield self[x]
+      to_a.size.times do |x|
+        return false if yield self.to_a[x]
       end
     elsif pattern.class == Regexp
-      length.times do |x|
-        return false if self[x].is_a?(String) && pattern.match(self[x])
+      to_a.size.times do |x|
+        return false if self.to_a[x].is_a?(String) && pattern.match(self.to_a[x])
       end
     elsif pattern.class == Class
-      length.times do |x|
-        return false if self[x].is_a?(pattern)
+      to_a.size.times do |x|
+        return false if self.to_a[x].is_a?(pattern)
       end
     else
-      length.times do |x|
-        return false if self[x] == pattern
+      to_a.size.times do |x|
+        return false if self.to_a[x] == pattern
       end
     end
     true
@@ -177,10 +177,9 @@ def multiply_els(arr)
 end
 
 my_range = ('a'..'d')
-my_range2 = (1..5)
-my_arr = %w[sajjad ahmad tadue]
-# puts my_arr.all?(/t/)
-# puts my_arr.my_all?(/t/)
-puts my_range.all?(/t/)
-puts my_range.my_all?(2)
-puts my_range2.my_all?('a')
+my_range2 = (1..3)
+my_str = %w[sajjad ahmad tadue]
+my_ar = [1, 2, 3, 4]
+
+puts my_ar.none?{|i| i.even?}
+puts my_ar.my_none?{|i| i.even?}
