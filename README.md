@@ -25,13 +25,13 @@ These methods are coded without using any Enumerable library method.
 
 ## Authors
 
-👤 **Author1**
+👤 **Sajjad Ahmad**
 
 - Github: [@githubhandle](https://github.com/SajjadAhmad14)
 - Twitter: [@twitterhandle](https://twitter.com/Sajjad_Ahmad14)
 - Linkedin: [linkedin](https://linkedin.com/sajjad-ahmad-86102117a/)
 
-👤 **Author2**
+👤 **Tadeua Sarro**
 
 - Github: [@githubhandle](https://github.com/tadeuasarro)
 - Twitter: [@twitterhandle](https://twitter.com/tadeuasarro)
