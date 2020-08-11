@@ -42,26 +42,27 @@ module Enumerable
 
   def my_all?(pattern = nil)
     if block_given? == false && pattern.nil? == true
-      length.times do |x|
-        return false if self[x] == false || self[x].nil?
+      size.times do |x|
+        return false if self.to_a[x] == false || self.to_a[x].nil?
       end
       return true
     end
 
     if pattern.nil?
-      length.times do |x|
-        return false unless yield self[x]
+      size.times do |x|
+        return false unless yield to_a[x]
       end
     elsif pattern.class == Regexp
-      length.times do |x|
-        return false if self[x].is_a?(String) && !pattern.match(self[x])
+      puts self
+      size.times do |x|
+        return false if self.to_a[x].is_a?(String) && !pattern.match(self.to_a[x])
       end
     elsif pattern.class == Class
-      length.times do |x|
+      size.times do |x|
         return false unless self[x].is_a?(pattern)
       end
     else
-      length.times do |x|
+      size.times do |x|
         return false if self[x] != pattern
       end
     end
@@ -175,3 +176,10 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
+
+my_range = ('a'..'d')
+my_arr = %w[sajjad ahmad tadue]
+# puts my_arr.all?(/t/)
+# puts my_arr.my_all?(/t/)
+puts my_range.all?(/t/)
+puts my_range.my_all?(/t/)
