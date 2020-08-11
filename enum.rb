@@ -71,26 +71,26 @@ module Enumerable
   def my_any?(pattern = nil)
     if block_given? == false && pattern.nil? == true
       to_a.size.times do |x|
-        return true unless self.to_a[x] == false || self.to_a[x].nil?
+        return true unless to_a[x] == false || to_a[x].nil?
       end
       return false
     end
 
     if pattern.nil?
       to_a.size.times do |x|
-        return true if yield self.to_a[x]
+        return true if yield to_a[x]
       end
     elsif pattern.class == Regexp
       to_a.size.times do |x|
-        return true if self.to_a[x].is_a?(String) && pattern.match(self.to_a[x])
+        return true if to_a[x].is_a?(String) && pattern.match(to_a[x])
       end
     elsif pattern.class == Class
       to_a.size.times do |x|
-        return true if self.to_a[x].is_a?(pattern)
+        return true if to_a[x].is_a?(pattern)
       end
     else
       to_a.size.times do |x|
-        return true if self.to_a[x] == pattern
+        return true if to_a[x] == pattern
       end
     end
     false
@@ -99,26 +99,26 @@ module Enumerable
   def my_none?(pattern = nil)
     if block_given? == false && pattern.nil? == true
       to_a.size.times do |x|
-        return false unless self.to_a[x] == false || self.to_a[x].nil?
+        return false unless to_a[x] == false || to_a[x].nil?
       end
       return true
     end
 
     if pattern.nil?
       to_a.size.times do |x|
-        return false if yield self.to_a[x]
+        return false if yield to_a[x]
       end
     elsif pattern.class == Regexp
       to_a.size.times do |x|
-        return false if self.to_a[x].is_a?(String) && pattern.match(self.to_a[x])
+        return false if to_a[x].is_a?(String) && pattern.match(to_a[x])
       end
     elsif pattern.class == Class
       to_a.size.times do |x|
-        return false if self.to_a[x].is_a?(pattern)
+        return false if to_a[x].is_a?(pattern)
       end
     else
       to_a.size.times do |x|
-        return false if self.to_a[x] == pattern
+        return false if to_a[x] == pattern
       end
     end
     true
@@ -157,12 +157,20 @@ module Enumerable
     new_array
   end
 
-  def my_inject
-    counter = self[0]
-    length.times do |x|
-      next if x.zero?
+  def my_inject(arg = nil)
+    counter = to_a[0]
+    if arg.nil?
+      size.times do |x|
+        next if x.zero?
 
-      counter = yield(counter, self[x])
+        counter = yield(counter, to_a[x])
+      end
+    else
+      size.times do |x|
+        next if x.zero?
+
+        counter = counter.send(arg.to_s, to_a[x])
+      end
     end
     counter
   end
@@ -181,5 +189,5 @@ my_range2 = (1..3)
 my_str = %w[sajjad ahmad tadue]
 my_ar = [1, 2, 3, 4]
 
-puts my_ar.none?{|i| i.even?}
-puts my_ar.my_none?{|i| i.even?}
+#puts my_range2.inject
+puts my_range2.my_inject(:*)
