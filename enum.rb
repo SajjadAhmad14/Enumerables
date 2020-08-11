@@ -194,6 +194,3 @@ end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
-
-my_ar = [1, 2, 3, 4]
-my_range = (1..4)
