@@ -43,7 +43,7 @@ module Enumerable
   def my_all?(pattern = nil)
     if block_given? == false && pattern.nil? == true
       size.times do |x|
-        return false if self.to_a[x] == false || self.to_a[x].nil?
+        return false if to_a[x] == false || to_a[x].nil?
       end
       return true
     end
@@ -53,17 +53,16 @@ module Enumerable
         return false unless yield to_a[x]
       end
     elsif pattern.class == Regexp
-      puts self
-      size.times do |x|
-        return false if self.to_a[x].is_a?(String) && !pattern.match(self.to_a[x])
+      to_a.size.times do |x|
+        return false if to_a[x].is_a?(String) && !pattern.match(to_a[x])
       end
     elsif pattern.class == Class
-      size.times do |x|
-        return false unless self[x].is_a?(pattern)
+      to_a.size.times do |x|
+        return false unless to_a[x].is_a?(pattern)
       end
     else
-      size.times do |x|
-        return false if self[x] != pattern
+      to_a.size.times do |x|
+        return false if to_a[x] != pattern
       end
     end
     true
@@ -178,8 +177,10 @@ def multiply_els(arr)
 end
 
 my_range = ('a'..'d')
+my_range2 = (1..5)
 my_arr = %w[sajjad ahmad tadue]
 # puts my_arr.all?(/t/)
 # puts my_arr.my_all?(/t/)
 puts my_range.all?(/t/)
-puts my_range.my_all?(/t/)
+puts my_range.my_all?(2)
+puts my_range2.my_all?('a')
