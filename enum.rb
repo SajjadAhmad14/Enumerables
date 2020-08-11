@@ -157,25 +157,34 @@ module Enumerable
     new_array
   end
 
-  def my_inject(arg = nil)
-    memo = to_a[0]
-    puts arg
-    if arg.nil?
-      size.times do |x|
+  def my_inject(arg1 = nil, arg2 = nil)
+    if !arg1.nil? && !arg2.nil?
+      memo = arg1
+
+      to_a.size.times do |x|
+        memo = memo.send(arg2.to_s, to_a[x])
+      end
+    elsif arg1.is_a?(Numeric) && block_given?
+      memo = arg1
+
+      to_a.size.times do |x|
+        memo = yield(memo, to_a[x])
+      end
+    elsif arg1.is_a?(Symbol)
+      memo = to_a[0]
+
+      to_a.size.times do |x|
+        next if x.zero?
+
+        memo = memo.send(arg1.to_s, to_a[x])
+      end
+    else
+      memo = to_a[0]
+
+      to_a.size.times do |x|
         next if x.zero?
 
         memo = yield(memo, to_a[x])
-      end
-    elsif arg.nil? == false && block_given?
-      memo = arg
-      size.times do |x|
-        memo = yield(memo, to_a[x])
-      end
-    else
-      size.times do |x|
-        next if x.zero?
-  
-        memo = memo.send(arg.to_s, to_a[x])
       end
     end
     memo
@@ -188,6 +197,3 @@ end
 
 my_ar = [1, 2, 3, 4]
 my_range = (1..4)
-
-puts my_range.inject(:-)
-puts my_range.my_inject(:-)
