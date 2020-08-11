@@ -179,15 +179,3 @@ end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
-
-def multiply_els(arr)
-  arr.my_inject { |x, y| x * y }
-end
-
-my_range = ('a'..'d')
-my_range2 = (1..3)
-my_str = %w[sajjad ahmad tadue]
-my_ar = [1, 2, 3, 4]
-
-#puts my_range2.inject
-puts my_range2.my_inject(:*)
