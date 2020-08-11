@@ -158,24 +158,36 @@ module Enumerable
   end
 
   def my_inject(arg = nil)
-    counter = to_a[0]
+    memo = to_a[0]
+    puts arg
     if arg.nil?
       size.times do |x|
         next if x.zero?
 
-        counter = yield(counter, to_a[x])
+        memo = yield(memo, to_a[x])
+      end
+    elsif arg.nil? == false && block_given?
+      memo = arg
+      size.times do |x|
+        memo = yield(memo, to_a[x])
       end
     else
       size.times do |x|
         next if x.zero?
-
-        counter = counter.send(arg.to_s, to_a[x])
+  
+        memo = memo.send(arg.to_s, to_a[x])
       end
     end
-    counter
+    memo
   end
 end
 # rubocop:enable Metrics/ModuleLength
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
+
+my_ar = [1, 2, 3, 4]
+my_range = (1..4)
+
+puts my_range.inject(:-)
+puts my_range.my_inject(:-)
