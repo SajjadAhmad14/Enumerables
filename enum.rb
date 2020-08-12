@@ -194,3 +194,7 @@ end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
+
+def multiply_els(arg)
+  arg.inject(:*)
+end
