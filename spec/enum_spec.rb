@@ -91,4 +91,16 @@ describe Enumerable do
       expect(array.my_map).to be_an Enumerator
     end
   end
+
+  describe '#my_inject' do
+    it "returns a combined result when block is passed" do
+      expect(array.my_inject{|product, e| product * e}).to eql(24)
+    end
+    it "returns combined result when a symbol is passed" do
+      expect(array.my_inject(:+)).to eql(10)
+    end
+    it "combine result when a block and initial value is passed" do
+      expect(array.my_inject(1){|product, e| product * e}).to eql(24)
+    end
+  end
 end
