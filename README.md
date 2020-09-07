@@ -8,6 +8,11 @@
 - We implemented #my_each, #my_each_with_index, #my_select, #my_all?, #my_any?, #my_none?, #my_count, #my_map, #my_inject
 These methods are coded without using any Enumerable library method.
 
+- Spec tests using Rspec have been added in spc folder for all the enumerable methods
+- Each method has a separate describe block and each testing aspect is covered with it block
+- Used describe block, it block, expect and eql methods.
+- Variables for testing purpose are created with let
+
 ## Built With
 
 - Ruby
