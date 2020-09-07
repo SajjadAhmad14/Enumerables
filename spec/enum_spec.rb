@@ -1,5 +1,6 @@
-require '../enum.rb'
+# This file contains spec tests for Enumerable methods
 
+require '../enum.rb'
 describe Enumerable do
   let(:empty_array) { [] }
   let(:array) { [1, 2, 3, 4] }
@@ -30,8 +31,8 @@ describe Enumerable do
   end
 
   describe '#my_select' do
-    it 'return each element for which condition is true' do
-      expect(array.my_select { |element| element.even? }).to eql([2, 4])
+    it 'returns each element for which condition is true' do
+      expect(array.my_select { |i| i > 2 }).to eql([3, 4])
     end
   end
 
@@ -84,23 +85,23 @@ describe Enumerable do
   end
 
   describe '#my_map' do
-    it "returns a new array of elements for which condition true" do
-      expect(array.my_map{|e| e + 1}).to eql([2, 3, 4, 5])
+    it 'returns a new array of elements for which condition true' do
+      expect(array.my_map { |e| e + 1 }).to eql([2, 3, 4, 5])
     end
-    it "returns an enumerator if no block given" do
+    it 'returns an enumerator if no block given' do
       expect(array.my_map).to be_an Enumerator
     end
   end
 
   describe '#my_inject' do
-    it "returns a combined result when block is passed" do
-      expect(array.my_inject{|product, e| product * e}).to eql(24)
+    it 'returns a combined result when block is passed' do
+      expect(array.my_inject { |product, e| product * e }).to eql(24)
     end
-    it "returns combined result when a symbol is passed" do
+    it 'returns combined result when a symbol is passed' do
       expect(array.my_inject(:+)).to eql(10)
     end
-    it "combine result when a block and initial value is passed" do
-      expect(array.my_inject(1){|product, e| product * e}).to eql(24)
+    it 'combine result when a block and initial value is passed' do
+      expect(array.my_inject(1) { |product, e| product * e }).to eql(24)
     end
   end
 end
