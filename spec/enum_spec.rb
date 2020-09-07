@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ModuleLength
 require '../enum.rb'
 
 describe Enumerable do
@@ -62,7 +61,7 @@ describe Enumerable do
 
   describe '#my_none?' do
     it 'true if condition false for all elements' do
-      expect(array.my_none? { |element| element < 0}).to eql(true)
+      expect(array.my_none? { |element| element < 0 }).to eql(true)
     end
     it 'false if condition true for any element' do
       expect(array.my_none? { |element| element > 3 }).to eql(false)
@@ -73,17 +72,23 @@ describe Enumerable do
   end
 
   describe '#my_count' do
-    it "count array elements" do
+    it 'count array elements' do
       expect(array.my_count).to eql(4)
     end
-    it "total number against the passed argument" do
+    it 'total number against the passed argument' do
       expect(array.my_count).to eql(4)
     end
-    it "total number for condition true" do
-      expect(array.my_count{|e| e > 1}).to eql(3)
+    it 'total number for condition true' do
+      expect(array.my_count { |e| e > 1 }).to eql(3)
     end
   end
 
-  
+  describe '#my_map' do
+    it "returns a new array of elements for which condition true" do
+      expect(array.my_map{|e| e + 1}).to eql([2, 3, 4, 5])
+    end
+    it "returns an enumerator if no block given" do
+      expect(array.my_map).to be_an Enumerator
+    end
+  end
 end
-# rubocop:enable Metrics/ModuleLength
