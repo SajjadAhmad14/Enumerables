@@ -8,10 +8,10 @@ describe Enumerable do
   let(:range) { (1..4) }
   describe '#my_each' do
     it 'return each element of an array' do
-      expect(array.my_each { |element|}).to eql([1, 2, 3, 4])
+      expect(array.my_each { |element| }).to eql([1, 2, 3, 4])
     end
     it 'return each element of an hash' do
-      expect(hash.my_each { |key, value| }).to eql({'name' => 'name1', 'cast' => 'Sardar'})
+      expect(hash.my_each { |key, value| }).to eql({ 'name' => 'name1', 'cast' => 'Sardar' })
     end
     it 'return each element of a range' do
       expect(range.my_each { |element| }).to eql((1..4))
@@ -23,7 +23,7 @@ describe Enumerable do
       expect(array.my_each_with_index { |element, index| }).to eql([1, 2, 3, 4])
     end
     it 'return each element of an hash and its corresponding index' do
-      expect(hash.my_each_with_index { |element, index| }).to eql({'name' => 'name1', 'cast' => 'Sardar'})
+      expect(hash.my_each_with_index { |element, index| }).to eql({ 'name' => 'name1', 'cast' => 'Sardar' })
     end
     it 'return each element of a range and its corresponding index' do
       expect(range.my_each_with_index { |element, index| }).to eql(1..4)
