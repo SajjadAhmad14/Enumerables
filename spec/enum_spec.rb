@@ -4,17 +4,17 @@ require '../enum.rb'
 describe Enumerable do
   let(:empty_array) { [] }
   let(:array) { [1, 2, 3, 4] }
-  let(:hash) { { 'name' => 'name1' } }
+  let(:hash) { { 'name' => 'name1', 'cast' => 'Sardar' } }
   let(:range) { (1..4) }
   describe '#my_each' do
     it 'return each element of an array' do
-      expect(array.my_each { |element| }).to eql(array.my_each { |element| })
+      expect(array.my_each { |element|}).to eql([1, 2, 3, 4])
     end
     it 'return each element of an hash' do
-      expect(hash.my_each { |element| }).to eql(hash.my_each { |element| })
+      expect(hash.my_each { |key, value| }).to eql({'name' => 'name1', 'cast' => 'Sardar'})
     end
     it 'return each element of a range' do
-      expect(range.my_each { |element| }).to eql(range.my_each { |element| })
+      expect(range.my_each { |element| }).to eql((1..4))
     end
   end
 
