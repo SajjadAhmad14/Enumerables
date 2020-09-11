@@ -20,13 +20,13 @@ describe Enumerable do
 
   describe '#my_each_with_index' do
     it 'return each element of an array and its corresponding index' do
-      expect(array.my_each_with_index { |element, index| }).to eql(array.my_each_with_index { |element, index| })
+      expect(array.my_each_with_index { |element, index| }).to eql([1, 2, 3, 4])
     end
     it 'return each element of an hash and its corresponding index' do
-      expect(hash.my_each_with_index { |element, index| }).to eql(hash.my_each_with_index { |element, index| })
+      expect(hash.my_each_with_index { |element, index| }).to eql({'name' => 'name1', 'cast' => 'Sardar'})
     end
     it 'return each element of a range and its corresponding index' do
-      expect(range.my_each_with_index { |element, index| }).to eql(range.my_each_with_index { |element, index| })
+      expect(range.my_each_with_index { |element, index| }).to eql(1..4)
     end
   end
 
@@ -42,6 +42,9 @@ describe Enumerable do
     end
     it 'return false if all of the elements are false for condition' do
       expect(array.my_all? { |element| element > 2 }).to eql(false)
+    end
+    it 'return false if even one element has a nil value' do
+      expect([nil, 1, true, 'sajjad'].my_all?).to eql(false)
     end
     it 'return true when method is called on empty array and no block is passed to method' do
       expect(empty_array.my_all?).to eql(true)
@@ -85,7 +88,7 @@ describe Enumerable do
   end
 
   describe '#my_map' do
-    it 'returns a new array of elements for which condition true' do
+    it 'returns a new array based on the block given' do
       expect(array.my_map { |e| e + 1 }).to eql([2, 3, 4, 5])
     end
     it 'returns an enumerator if no block given' do
