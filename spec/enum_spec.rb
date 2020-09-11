@@ -1,6 +1,6 @@
 # This file contains spec tests for Enumerable methods
 
-require '../enum.rb'
+require_relative '../enum.rb'
 describe Enumerable do
   let(:empty_array) { [] }
   let(:array) { [1, 2, 3, 4] }
@@ -76,13 +76,13 @@ describe Enumerable do
   end
 
   describe '#my_count' do
-    it 'count array elements' do
+    it 'count all array elements' do
       expect(array.my_count).to eql(4)
     end
-    it 'total number against the passed argument' do
-      expect(array.my_count).to eql(4)
+    it 'count array elements which are equal to passed argument' do
+      expect(array.my_count(2)).to eql(1)
     end
-    it 'total number for condition true' do
+    it 'count array elements for which given block condition true' do
       expect(array.my_count { |e| e > 1 }).to eql(3)
     end
   end
