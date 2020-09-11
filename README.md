@@ -3,7 +3,7 @@
 # Enumerables (Own implementation of some of Enumerables methods)
 
 ![screenshot](./images/tests.png)
-              ![screenshot](./images/screenshot.png)
+![screenshot](./images/screenshot.png)
 
 - We implemented #my_each, #my_each_with_index, #my_select, #my_all?, #my_any?, #my_none?, #my_count, #my_map, #my_inject
 These methods are coded without using any Enumerable library method.
