@@ -107,4 +107,10 @@ describe Enumerable do
       expect(array.my_inject(1) { |product, e| product * e }).to eql(24)
     end
   end
+
+  describe '#multiply_els(array)' do
+    it 'return result after calling inject on parameter' do
+      expect(array.inject(:*)).to eql(24)
+    end
+  end
 end
