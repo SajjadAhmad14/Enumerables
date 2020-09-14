@@ -70,40 +70,63 @@ describe Enumerable do
     it 'return true when method is called on empty array and no block is passed to method' do
       expect(empty_array.my_all?).to eql(true)
     end
+    it 'return false when regex is not present in all the elements' do
+      expect(%w[I am Sajjad].my_all?(/a/)).to eql(false)
+    end
+    it 'return true or false when a class is passed' do
+      expect(['I', 'am', 25].my_all?(Integer)).to eql(false)
+      expect(%w[I am Sajjad].my_all?(String)).to eql(true)
+    end
   end
 
   describe '#my_any?' do
-    it 'returns true if any element is true to condition' do
+    it 'return true if any element is true to condition' do
       expect(array.my_any? { |element| element > 2 }).to eql(true)
     end
-    it 'returns false if any element is false to condition' do
+    it 'return false if any element is false to condition' do
       expect(array.my_any? { |element| element > 4 }).to eql(false)
     end
-    it 'returns false if method is called on empty array and no block is passed' do
+    it 'return false if method is called on empty array and no block is passed' do
       expect(empty_array.my_any?).to eql(false)
+    end
+    it 'return true or false when a regex is passed' do
+      expect(%w[I am Sajjad].my_any?(/a/)).to eql(true)
+      expect(%w[I am Sajjad].my_any?(/z/)).to eql(false)
+    end
+    it 'return true or false when a class is passed' do
+      expect(['I', 'am', 25].my_any?(Integer)).to eql(true)
+      expect(%w[I am Sajjad].my_any?(Integer)).to eql(false)
     end
   end
 
   describe '#my_none?' do
-    it 'true if condition false for all elements' do
+    it 'return true if condition false for all elements' do
       expect(array.my_none? { |element| element < 0 }).to eql(true)
     end
-    it 'false if condition true for any element' do
+    it 'return false if condition true for any element' do
       expect(array.my_none? { |element| element > 3 }).to eql(false)
     end
-    it 'true if array is empty and no block passed' do
+    it 'return true if array is empty and no block passed' do
       expect(empty_array.my_none?).to eql(true)
+    end
+    it 'return true or false when a regex is passed' do
+      expect(%w[I am Sajjad].my_none?(/z/)).to eql(true)
+      expect(%w[I am Sajjad].my_none?(/a/)).to eql(false)
+    end
+    it 'return true or false when a class is passed' do
+      expect(['I', 'am', 25].my_none?(Integer)).to eql(false)
+      expect(%w[I am Sajjad].my_none?(Integer)).to eql(true)
     end
   end
 
   describe '#my_count' do
-    it 'count all array elements' do
+    it 'return total count of array' do
       expect(array.my_count).to eql(4)
     end
-    it 'count array elements which are equal to passed argument' do
+    it 'return total count array elements which are equal to passed argument' do
       expect(array.my_count(2)).to eql(1)
     end
-    it 'count array elements for which given block condition true' do
+    it 'return total count array elements for which given block is given' do
       expect(array.my_count { |e| e > 1 }).to eql(3)
     end
   end
