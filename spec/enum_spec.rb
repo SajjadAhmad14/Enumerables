@@ -7,20 +7,20 @@ describe Enumerable do
   let(:hash) { { 'name' => 'Sajjad', 'cast' => 'Sardar' } }
   let(:range) { (1..4) }
   describe '#my_each' do
-    it 'returns an enumerator if no block given' do
+    it 'return an enumerator if no block given' do
       expect(array.my_each).to be_an Enumerator
     end
-    it 'return each element of an array when a block is passed' do
+    it 'return an array when a block is passed' do
       result = []
       array.my_each { |element| result << element + 1}
       expect(result).to eql([2, 3, 4, 5])
     end
-    it 'return each element of an hash when a block is passed' do
+    it 'return an hash when a block is passed' do
       result = {}
       hash.my_each{ |key, value| result.store("my " + key, value)}
       expect(result).to eql({"my name"=>"Sajjad", "my cast"=>"Sardar"})
     end
-    it 'return each element of a range' do
+    it 'return a range when a block is passed' do
       result = []
       range.my_each { |element| result << element * 2}
       expect(result).to eql([2, 4, 6, 8])
@@ -28,7 +28,7 @@ describe Enumerable do
   end
 
   describe '#my_each_with_index' do
-    it 'returns an enumerator if no block given' do
+    it 'return an enumerator if no block given' do
       expect(array.my_each).to be_an Enumerator
     end
     it 'return array when a block is passed' do
@@ -41,7 +41,7 @@ describe Enumerable do
       hash.my_each_with_index{ |key, value| result.store(key, value)}
       expect(result).to eql({["name", "Sajjad"]=>0, ["cast", "Sardar"]=>1})
     end
-    it 'return each element of a range and its corresponding index' do
+    it 'return a range when a block is passed' do
       result = []
       range.my_each_with_index { |element, index| result << element + 2}
       expect(result).to eql([3, 4, 5, 6])
@@ -49,8 +49,11 @@ describe Enumerable do
   end
 
   describe '#my_select' do
-    it 'returns each element for which condition is true' do
-      expect(array.my_select { |i| i > 2 }).to eql([3, 4])
+    it 'return an enumerator if no block given' do
+      expect(array.my_select).to be_an Enumerator
+    end
+    it 'return an array when a block is given' do
+      expect(array.my_select { |i| i.even? }).to eql([2, 4])
     end
   end
 
