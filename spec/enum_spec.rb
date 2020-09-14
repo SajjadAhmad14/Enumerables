@@ -4,29 +4,47 @@ require_relative '../enum.rb'
 describe Enumerable do
   let(:empty_array) { [] }
   let(:array) { [1, 2, 3, 4] }
-  let(:hash) { { 'name' => 'name1', 'cast' => 'Sardar' } }
+  let(:hash) { { 'name' => 'Sajjad', 'cast' => 'Sardar' } }
   let(:range) { (1..4) }
   describe '#my_each' do
-    it 'return each element of an array' do
-      expect(array.my_each { |element| }).to eql([1, 2, 3, 4])
+    it 'returns an enumerator if no block given' do
+      expect(array.my_each).to be_an Enumerator
     end
-    it 'return each element of an hash' do
-      expect(hash.my_each { |key, value| }).to eql({ 'name' => 'name1', 'cast' => 'Sardar' })
+    it 'return each element of an array when a block is passed' do
+      result = []
+      array.my_each { |element| result << element + 1}
+      expect(result).to eql([2, 3, 4, 5])
+    end
+    it 'return each element of an hash when a block is passed' do
+      result = {}
+      hash.my_each{ |key, value| result.store("my " + key, value)}
+      expect(result).to eql({"my name"=>"Sajjad", "my cast"=>"Sardar"})
     end
     it 'return each element of a range' do
-      expect(range.my_each { |element| }).to eql((1..4))
+      result = []
+      range.my_each { |element| result << element * 2}
+      expect(result).to eql([2, 4, 6, 8])
     end
   end
 
   describe '#my_each_with_index' do
-    it 'return each element of an array and its corresponding index' do
-      expect(array.my_each_with_index { |element, index| }).to eql([1, 2, 3, 4])
+    it 'returns an enumerator if no block given' do
+      expect(array.my_each).to be_an Enumerator
     end
-    it 'return each element of an hash and its corresponding index' do
-      expect(hash.my_each_with_index { |element, index| }).to eql({ 'name' => 'name1', 'cast' => 'Sardar' })
+    it 'return array when a block is passed' do
+      result = []
+      array.my_each_with_index { |element, index| result << element - 1}
+      expect(result).to eql([0, 1, 2, 3])
+    end
+    it 'return an hash when a block is passed' do
+      result = {}
+      hash.my_each_with_index{ |key, value| result.store(key, value)}
+      expect(result).to eql({["name", "Sajjad"]=>0, ["cast", "Sardar"]=>1})
     end
     it 'return each element of a range and its corresponding index' do
-      expect(range.my_each_with_index { |element, index| }).to eql(1..4)
+      result = []
+      range.my_each_with_index { |element, index| result << element + 2}
+      expect(result).to eql([3, 4, 5, 6])
     end
   end
 
