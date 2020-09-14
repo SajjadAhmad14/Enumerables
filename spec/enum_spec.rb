@@ -12,17 +12,17 @@ describe Enumerable do
     end
     it 'return an array when a block is passed' do
       result = []
-      array.my_each { |element| result << element + 1}
+      array.my_each { |element| result << element + 1 }
       expect(result).to eql([2, 3, 4, 5])
     end
     it 'return an hash when a block is passed' do
       result = {}
-      hash.my_each{ |key, value| result.store("my " + key, value)}
-      expect(result).to eql({"my name"=>"Sajjad", "my cast"=>"Sardar"})
+      hash.my_each { |key, value| result.store('my ' + key, value) }
+      expect(result).to eql({ 'my name' => 'Sajjad', 'my cast' => 'Sardar' })
     end
     it 'return a range when a block is passed' do
       result = []
-      range.my_each { |element| result << element * 2}
+      range.my_each { |element| result << element * 2 }
       expect(result).to eql([2, 4, 6, 8])
     end
   end
@@ -33,17 +33,17 @@ describe Enumerable do
     end
     it 'return array when a block is passed' do
       result = []
-      array.my_each_with_index { |element, index| result << element - 1}
+      array.my_each_with_index { |element, _index| result << element - 1 }
       expect(result).to eql([0, 1, 2, 3])
     end
     it 'return an hash with indexes when a block is passed' do
       result = {}
-      hash.my_each_with_index{ |key, value| result.store(key, value)}
-      expect(result).to eql({["name", "Sajjad"]=>0, ["cast", "Sardar"]=>1})
+      hash.my_each_with_index { |key, value| result.store(key, value) }
+      expect(result).to eql({ %w[name Sajjad] => 0, %w[cast Sardar] => 1 })
     end
     it 'return a range when a block is passed' do
       result = []
-      range.my_each_with_index { |element, index| result << element + 2}
+      range.my_each_with_index { |element, _index| result << element + 2 }
       expect(result).to eql([3, 4, 5, 6])
     end
   end
@@ -53,7 +53,7 @@ describe Enumerable do
       expect(array.my_select).to be_an Enumerator
     end
     it 'return an array when a block is given' do
-      expect(array.my_select { |i| i.even? }).to eql([2, 4])
+      expect(array.my_select(&:even?)).to eql([2, 4])
     end
   end
 
