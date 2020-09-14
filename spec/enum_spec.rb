@@ -36,7 +36,7 @@ describe Enumerable do
       array.my_each_with_index { |element, index| result << element - 1}
       expect(result).to eql([0, 1, 2, 3])
     end
-    it 'return an hash when a block is passed' do
+    it 'return an hash with indexes when a block is passed' do
       result = {}
       hash.my_each_with_index{ |key, value| result.store(key, value)}
       expect(result).to eql({["name", "Sajjad"]=>0, ["cast", "Sardar"]=>1})
