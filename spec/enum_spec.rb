@@ -39,7 +39,7 @@ describe Enumerable do
     it 'return an hash with indexes when a block is passed' do
       result = {}
       hash.my_each_with_index { |key, value| result.store(key, value) }
-      expect(result).to eql({ ['name', 'Sajjad'] => 0, ['cast', 'Sardar'] => 1 })
+      expect(result).to eql({ %w[name Sajjad] => 0, %w[cast Sardar] => 1 })
     end
     it 'return a range when a block is passed' do
       result = []
