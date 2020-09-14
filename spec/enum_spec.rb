@@ -118,14 +118,17 @@ describe Enumerable do
   end
 
   describe '#my_inject' do
-    it 'returns a combined result when block is passed' do
+    it 'return a combined result when block is passed' do
       expect(array.my_inject { |product, e| product * e }).to eql(24)
     end
-    it 'returns combined result when a symbol is passed' do
+    it 'return combined result when a symbol is passed' do
       expect(array.my_inject(:+)).to eql(10)
     end
-    it 'combine result when a block and initial value is passed' do
+    it 'return combine result when a block and initial value is passed' do
       expect(array.my_inject(1) { |product, e| product * e }).to eql(24)
+    end
+    it 'return combine result when a symbol and an initial value is passed' do
+      expect(array.my_inject(1, :+)).to eql(11)
     end
   end
 
