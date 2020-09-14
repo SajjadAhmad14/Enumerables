@@ -31,7 +31,7 @@ describe Enumerable do
     it 'return an enumerator if no block given' do
       expect(array.my_each).to be_an Enumerator
     end
-    it 'return array when a block is passed' do
+    it 'return an array when a block is passed' do
       result = []
       array.my_each_with_index { |element, _index| result << element - 1 }
       expect(result).to eql([0, 1, 2, 3])
@@ -39,7 +39,7 @@ describe Enumerable do
     it 'return an hash with indexes when a block is passed' do
       result = {}
       hash.my_each_with_index { |key, value| result.store(key, value) }
-      expect(result).to eql({ %w[name Sajjad] => 0, %w[cast Sardar] => 1 })
+      expect(result).to eql({ ['name', 'Sajjad'] => 0, ['cast', 'Sardar'] => 1 })
     end
     it 'return a range when a block is passed' do
       result = []
